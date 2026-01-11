@@ -5,6 +5,7 @@ use Gentux\Healthz\HealthCheck;
 
 class DebugHealthCheckTest extends \TestCase
 {
+    protected DebugHealthCheck $debug;
 
     public function setUp(): void
     {

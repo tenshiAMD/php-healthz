@@ -1,10 +1,10 @@
-version: '3'
 services:
-    app:
-        build:
-            context: .
-            dockerfile: ./Dockerfile
-        volumes:
-            - ./:/var/www
-        ports:
-            - 81:80
+  php:
+    user: 1000:1000
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.4}
+    volumes:
+      - ./:/var/www
