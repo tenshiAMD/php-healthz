@@ -9,10 +9,10 @@ use GuzzleHttp\Psr7\Response;
 use Gentux\Healthz\HealthCheck;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Uri;
+use PHPUnit\Framework\Attributes\Test;
 
 class HttpHealthCheckTest extends \TestCase
 {
-
     /** @var Request | Mockery\Mock */
     protected $request;
 
@@ -30,13 +30,13 @@ class HttpHealthCheckTest extends \TestCase
         $this->http = new HttpHealthCheck($this->request, 200, [], $this->guzzle);
     }
 
-    /** @test */
+    #[Test]
     public function instance_of_health_check()
     {
         $this->assertInstanceOf(HealthCheck::class, $this->http);
     }
 
-    /** @test */
+    #[Test]
     public function get_request_to_be_made()
     {
         $result = $this->http->request();
@@ -47,7 +47,7 @@ class HttpHealthCheckTest extends \TestCase
         $this->assertSame($newRequest, $this->http->request());
     }
 
-    /** @test */
+    #[Test]
     public function gets_expected_status_code_for_request()
     {
         $result = $this->http->expectedStatusCode();
@@ -58,7 +58,7 @@ class HttpHealthCheckTest extends \TestCase
         $this->assertSame(404, $result);
     }
 
-    /** @test */
+    #[Test]
     public function gets_guzzle_options()
     {
         $result = $this->http->guzzleOptions();
@@ -69,7 +69,7 @@ class HttpHealthCheckTest extends \TestCase
         $this->assertSame(['foo' => 'bar'], $result);
     }
 
-    /** @test */
+    #[Test]
     public function run_sends_the_request()
     {
         $response = Mockery::mock(Response::class);
@@ -81,9 +81,7 @@ class HttpHealthCheckTest extends \TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function run_throws_an_exception_if_the_expected_response_code_doesnt_match()
     {
         $this->expectException(\Gentux\Healthz\Exceptions\HealthFailureException::class);
@@ -95,7 +93,7 @@ class HttpHealthCheckTest extends \TestCase
         $this->http->run();
     }
 
-    /** @test */
+    #[Test]
     public function run_catches_guzzle_exceptions_to_compare_status_code()
     {
         $response = Mockery::mock(Response::class);
@@ -111,7 +109,7 @@ class HttpHealthCheckTest extends \TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[Test]
     public function if_no_description_is_set_the_request_uri_is_used()
     {
         $this->request->shouldReceive('getUri')->andReturn(new Uri('/somewhere'));

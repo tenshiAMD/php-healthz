@@ -7,10 +7,10 @@ use Gentux\Healthz\HealthCheck;
 use Illuminate\Database\Connection;
 use Illuminate\Database\DatabaseManager;
 use PDO;
+use PHPUnit\Framework\Attributes\Test;
 
 class DatabaseHealthCheckTest extends \TestCase
 {
-
     /** @var Mockery\Mock | DatabaseManager */
     protected $manager;
 
@@ -24,13 +24,13 @@ class DatabaseHealthCheckTest extends \TestCase
         $this->db = new DatabaseHealthCheck($this->manager);
     }
 
-    /** @test */
+    #[Test]
     public function instance_of_health_check()
     {
         $this->assertInstanceOf(HealthCheck::class, $this->db);
     }
 
-    /** @test */
+    #[Test]
     public function sets_connection_name()
     {
         $this->assertNull($this->db->connection());
@@ -39,7 +39,7 @@ class DatabaseHealthCheckTest extends \TestCase
         $this->assertSame('custom', $this->db->connection());
     }
 
-    /** @test */
+    #[Test]
     public function if_no_connection_is_set_use_the_description()
     {
         $description = $this->db->description();
@@ -50,7 +50,7 @@ class DatabaseHealthCheckTest extends \TestCase
         $this->assertSame('mysql', $description);
     }
 
-    /** @test */
+    #[Test]
     public function uses_the_connection_name_set_to_resolve_a_laravel_db_connection()
     {
         $this->db->setConnection('custom');
@@ -68,9 +68,7 @@ class DatabaseHealthCheckTest extends \TestCase
         $this->assertSame('connected', $status);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throws_health_failure_when_laravel_runs_into_trouble()
     {
         $this->expectException(\Gentux\Healthz\Exceptions\HealthFailureException::class);

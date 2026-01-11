@@ -9,10 +9,10 @@ use Illuminate\Queue\SyncQueue;
 use Illuminate\Queue\RedisQueue;
 use Gentux\Healthz\HealthCheck;
 use Illuminate\Queue\QueueManager;
+use PHPUnit\Framework\Attributes\Test;
 
 class QueueHealthCheckTest extends \TestCase
 {
-
     /** @var Mockery\Mock | QueueManager */
     protected $manager;
 
@@ -26,13 +26,13 @@ class QueueHealthCheckTest extends \TestCase
         $this->queue = new QueueHealthCheck($this->manager);
     }
 
-    /** @test */
+    #[Test]
     public function instance_of_health_check()
     {
         $this->assertInstanceOf(HealthCheck::class, $this->queue);
     }
 
-    /** @test */
+    #[Test]
     public function sets_queue_name()
     {
         $this->assertNull($this->queue->name());
@@ -41,7 +41,7 @@ class QueueHealthCheckTest extends \TestCase
         $this->assertSame('custom', $this->queue->name());
     }
 
-    /** @test */
+    #[Test]
     public function if_no_connection_is_set_use_the_description()
     {
         $description = $this->queue->description();
@@ -52,7 +52,7 @@ class QueueHealthCheckTest extends \TestCase
         $this->assertSame('sqs', $description);
     }
 
-    /** @test */
+    #[Test]
     public function checks_connection_status_of_sqs_queue()
     {
         $this->queue->setName('custom');
@@ -76,7 +76,7 @@ class QueueHealthCheckTest extends \TestCase
         $this->assertSame('connected to SQS', $status);
     }
 
-    /** @test */
+    #[Test]
     public function checks_status_of_sync_queue()
     {
         $sync = Mockery::mock(SyncQueue::class);
@@ -88,9 +88,7 @@ class QueueHealthCheckTest extends \TestCase
         $this->assertSame('connected to Sync queue', $status);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throws_warning_if_queue_driver_is_not_supported()
     {
         $this->expectException(\Gentux\Healthz\Exceptions\HealthWarningException::class);

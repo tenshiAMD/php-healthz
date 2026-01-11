@@ -1,14 +1,12 @@
 <?php
 namespace Gentux\Healthz\Checks\General;
 
-use Mockery;
 use Gentux\Healthz\HealthCheck;
+use PHPUnit\Framework\Attributes\Test;
 
 class EnvHealthCheckTest extends \TestCase
 {
-
-    /** @var EnvHealthCheck */
-    protected $env;
+    protected EnvHealthCheck $env;
 
     public function setUp(): void
     {
@@ -16,13 +14,13 @@ class EnvHealthCheckTest extends \TestCase
         $this->env = new EnvHealthCheck('CUSTOM_ENV');
     }
 
-    /** @test */
+    #[Test]
     public function instance_of_health_check()
     {
         $this->assertInstanceOf(HealthCheck::class, $this->env);
     }
 
-    /** @test */
+    #[Test]
     public function sets_the_status_to_the_current_environment()
     {
         putenv('CUSTOM_ENV=staging');
@@ -30,9 +28,7 @@ class EnvHealthCheckTest extends \TestCase
         $this->assertSame('staging', $this->env->status());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function unknown_environment_emits_a_warning()
     {
         $this->expectException(\Gentux\Healthz\Exceptions\HealthWarningException::class);

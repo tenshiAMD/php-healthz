@@ -2,6 +2,7 @@
 namespace Gentux\Healthz\Checks\General;
 
 use Gentux\Healthz\HealthCheck;
+use PHPUnit\Framework\Attributes\Test;
 
 class DebugHealthCheckTest extends \TestCase
 {
@@ -13,13 +14,13 @@ class DebugHealthCheckTest extends \TestCase
         $this->debug = new DebugHealthCheck();
     }
 
-    /** @test */
+    #[Test]
     public function instance_of_health_check()
     {
         $this->assertInstanceOf(HealthCheck::class, $this->debug);
     }
 
-    /** @test */
+    #[Test]
     public function run_sets_the_description_to_off()
     {
         putenv('APP_DEBUG=false');
@@ -28,9 +29,7 @@ class DebugHealthCheckTest extends \TestCase
         $this->assertSame('off', $this->debug->status());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function run_throws_warning_exception_if_debug_is_on()
     {
         $this->expectException(\Gentux\Healthz\Exceptions\HealthWarningException::class);

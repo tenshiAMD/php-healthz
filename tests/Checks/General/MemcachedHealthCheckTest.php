@@ -12,10 +12,10 @@ namespace Gentux\Healthz\Checks\General {
     use Mockery;
     use Gentux\Healthz\HealthCheck;
     use Memcached;
+    use PHPUnit\Framework\Attributes\Test;
 
     class MemcachedHealthCheckTest extends \TestCase
     {
-
         /** @var \Memcached */
         protected $memcached;
 
@@ -29,13 +29,13 @@ namespace Gentux\Healthz\Checks\General {
             $this->health = new MemcachedHealthCheck($this->memcached);
         }
 
-        /** @test */
+        #[Test]
         public function instance_of_health_check()
         {
             $this->assertInstanceOf(HealthCheck::class, $this->health);
         }
 
-        /** @test */
+        #[Test]
         public function add_servers()
         {
             $this->health->addServer('123.com');
@@ -48,14 +48,14 @@ namespace Gentux\Healthz\Checks\General {
             $this->assertSame($expect, $this->health->servers());
         }
 
-        /** @test */
+        #[Test]
         public function set_options()
         {
             $this->health->setOptions([1 => 'foo']);
             $this->assertSame([1 => 'foo'], $this->health->options());
         }
 
-        /** @test */
+        #[Test]
         public function username_and_password()
         {
             $this->health->setAuth('user', 'secret');
@@ -64,7 +64,7 @@ namespace Gentux\Healthz\Checks\General {
             $this->assertSame('secret', $this->health->password());
         }
 
-        /** @test */
+        #[Test]
         public function run_builds_memcached_instance_and_tests_connection()
         {
             $this->health->addServer('123.com');
@@ -83,9 +83,7 @@ namespace Gentux\Healthz\Checks\General {
             $this->assertTrue(true);
         }
 
-        /**
-         * @test
-         */
+        #[Test]
         public function run_throws_failure_exception_if_memcached_cant_set_test_value()
         {
             $this->expectException(\Gentux\Healthz\Exceptions\HealthFailureException::class);
