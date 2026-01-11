@@ -95,7 +95,7 @@ class Healthz
      *
      * @return string
      */
-    public function html(ResultStack $results = null): string
+    public function html(?ResultStack $results = null): string
     {
         if ($results === null) {
             $results = $this->run();

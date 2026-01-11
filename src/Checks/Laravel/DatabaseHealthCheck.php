@@ -31,7 +31,7 @@ class DatabaseHealthCheck extends HealthCheck
      *
      * @throws HealthFailureException if unable to resolve database manager
      */
-    public function __construct(DatabaseManager $db = null)
+    public function __construct(?DatabaseManager $db = null)
     {
         $this->db = $db;
 

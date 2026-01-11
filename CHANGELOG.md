@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - PHP 8.2 dynamic property deprecation in DebugHealthCheckTest
+- PHP 8.4 implicit nullable parameter deprecations in source files
 - Migrated phpunit.xml to latest schema
 - Replaced deprecated `@test` annotations with `#[Test]` attributes (PHPUnit 12 compatibility)
 
