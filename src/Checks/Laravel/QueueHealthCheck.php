@@ -34,7 +34,7 @@ class QueueHealthCheck extends HealthCheck
      *
      * @throws HealthFailureException if unable to resolve queue manager
      */
-    public function __construct(QueueManager $queue = null)
+    public function __construct(?QueueManager $queue = null)
     {
         $this->queue = $queue;
 

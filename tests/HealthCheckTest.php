@@ -1,12 +1,13 @@
 <?php
 namespace Gentux\Healthz;
 
+use PHPUnit\Framework\Attributes\Test;
+
 /**
  * See mock checks that extend the abstract HealthCheck at the bottom
  */
 class HealthCheckTest extends \TestCase
 {
-
     /** @var MockCheck */
     protected $check;
 
@@ -20,7 +21,7 @@ class HealthCheckTest extends \TestCase
         $this->checkWithTitle = new MockCheckTitle();
     }
 
-    /** @test */
+    #[Test]
     public function title_defaults_to_the_class_name()
     {
         $result = $this->check->title();

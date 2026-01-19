@@ -6,6 +6,11 @@
 
 Health checking for PHP apps with built-in support for Laravel.
 
+## Requirements
+
+- PHP 8.2 - 8.4
+- Laravel 10.x - 12.x (for Laravel integration)
+
 <img src="https://s3.amazonaws.com/gentux-dev/docs/health-check-screenshot.png">
 
 Get an easy overview of the health of your app! Implement a health check endpoint for load balancers, or your own sanity :) Comes with an optional UI and set of pre-configured checks you can use, and is extensible
@@ -277,38 +282,35 @@ public function run()
 }
 ```
 
-## Contributing
+## Development
 
-### What you need
+### Running Tests Locally
+
+**Run tests on default PHP version (8.4):**
+```bash
+docker-compose run --rm php composer install
+docker-compose run --rm php ./vendor/bin/phpunit
+```
+
+**Run tests on a specific PHP version:**
+```bash
+PHP_VERSION=8.2 docker-compose build php
+PHP_VERSION=8.2 docker-compose run --rm php composer install
+PHP_VERSION=8.2 docker-compose run --rm php ./vendor/bin/phpunit
+```
+
+### CI Matrix
+
+| PHP | Laravel 10 | Laravel 11 | Laravel 12 |
+|-----|------------|------------|------------|
+| 8.2 | ✓          | ✓          | ✓          |
+| 8.3 | ✓          | ✓          | ✓          |
+| 8.4 | ✓          | ✓          | ✓          |
+
+## Contributing
 
 - [docker & docker-compose](https://docs.docker.com/compose/install/)
 - a fork of this repo
-
-### Bringing up the development environment
-
-```sh
-docker-compose up -d
-```
-
-### Exec into the container
-
-```sh
-docker-compose exec app bash
-```
-
-### Composer install
-
-```sh
-composer install
-```
-
-### Running the tests
-
-```sh
-./vendor/bin/phpunit
-```
-
-### Finally
 
 Make your changes and add any needed tests around said changes.
 Then open a pull request into the generationtux repository.

@@ -31,7 +31,7 @@ class HttpHealthCheck extends HealthCheck
     /** @var Client */
     protected $guzzle;
 
-    public function __construct(Request $request, $expectedStatusCode = 200, array $guzzleOptions = [], Client $guzzle = null)
+    public function __construct(Request $request, $expectedStatusCode = 200, array $guzzleOptions = [], ?Client $guzzle = null)
     {
         $this->request = $request;
         $this->expectedStatusCode = $expectedStatusCode;

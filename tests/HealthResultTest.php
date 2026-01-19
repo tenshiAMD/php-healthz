@@ -2,10 +2,10 @@
 namespace Gentux\Healthz;
 
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 
 class HealthResultTest extends \TestCase
 {
-
     /** @var HealthResult*/
     protected $resultSuccess;
 
@@ -28,7 +28,7 @@ class HealthResultTest extends \TestCase
         $this->resultFailure = new HealthResult(HealthResult::RESULT_FAILURE, $check);
     }
 
-    /** @test */
+    #[Test]
     public function result_helpers()
     {
         $this->assertTrue($this->resultSuccess->passed());
@@ -44,7 +44,7 @@ class HealthResultTest extends \TestCase
         $this->assertFalse($this->resultFailure->warned());
     }
 
-    /** @test */
+    #[Test]
     public function information_about_health_check()
     {
         $this->assertSame('Title', $this->resultSuccess->title());

@@ -4,10 +4,10 @@ namespace Gentux\Healthz;
 use Mockery;
 use Exception;
 use Gentux\Healthz\Exceptions\HealthWarningException;
+use PHPUnit\Framework\Attributes\Test;
 
 class HealthzTest extends \TestCase
 {
-
     /** @var HealthCheck | Mockery\Mock */
     protected $check1;
 
@@ -30,7 +30,7 @@ class HealthzTest extends \TestCase
         $this->healthz = new Healthz([$this->check1, $this->check2]);
     }
 
-    /** @test */
+    #[Test]
     public function get_set_of_health_checks()
     {
         $result = $this->healthz->all();
@@ -39,7 +39,7 @@ class HealthzTest extends \TestCase
         $this->assertSame($this->check2, $result[1]);
     }
 
-    /** @test */
+    #[Test]
     public function push_new_health_checks_onto_the_stack()
     {
         $result = $this->healthz->push($this->check3);
@@ -48,7 +48,7 @@ class HealthzTest extends \TestCase
         $this->assertCount(3, $this->healthz->all());
     }
 
-    /** @test */
+    #[Test]
     public function run_health_checks_and_return_result_stack()
     {
         $this->healthz->push($this->check3);
@@ -75,7 +75,7 @@ class HealthzTest extends \TestCase
         $this->assertTrue($result->all()[2]->failed());
     }
 
-    /** @test */
+    #[Test]
     public function enable_laravel_exception_handler_then_run_health_checks_and_return_result_stack()
     {
         $this->healthz = Mockery::spy($this->healthz);

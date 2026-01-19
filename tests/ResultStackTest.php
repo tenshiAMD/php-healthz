@@ -2,10 +2,10 @@
 namespace Gentux\Healthz;
 
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 
 class ResultStackTest extends \TestCase
 {
-
     /** @var ResultStack */
     protected $stack;
 
@@ -34,7 +34,7 @@ class ResultStackTest extends \TestCase
         parent::setUp();
     }
 
-    /** @test */
+    #[Test]
     public function push_and_check_for_failures()
     {
         $this->stack->push($this->checkPassed);
@@ -46,7 +46,7 @@ class ResultStackTest extends \TestCase
         $this->assertTrue($this->stack->hasFailures());
     }
 
-    /** @test */
+    #[Test]
     public function push_and_check_for_warnings()
     {
         $this->stack->replace([$this->checkWarned]);
